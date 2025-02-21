@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Resource {
+  id             String       @id @default(uuid())
+  type           ResourceType @relation(fields: [resourceTypeId], references: [id])
+  resourceTypeId Int
+  title          String       @db.VarChar(255)
+  description    String       @db.VarChar(255)
+  url            String?      @db.VarChar(2083)
+  content        String?      @db.Text
+  tags           Tag[]        @relation("ResourceTags")
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model ResourceType {
+  id          Int        @id @default(autoincrement())
+  displayName String     @unique @db.VarChar(20)
+  Resource    Resource[]
+}
+
+model Tag {
+  id             Int            @id @default(autoincrement())
+  name           String         @unique
+  resources      Resource[]     @relation("ResourceTags")
+  journalEntries JournalEntry[] @relation("JournalEntryTags")
+}
+
+model Journal {
+  id        String         @id @default(uuid())
+  title     String         @db.VarChar(255)
+  entries   JournalEntry[] @relation("JournalEntries")
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model JournalEntry {
+  id        String   @id @default(uuid())
+  journalId String
+  journal   Journal  @relation("JournalEntries", fields: [journalId], references: [id])
+  title     String   @db.VarChar(255)
+  intro     String?  @db.VarChar(255)
+  content   String   @db.Text
+  tags      Tag[]    @relation("JournalEntryTags")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
