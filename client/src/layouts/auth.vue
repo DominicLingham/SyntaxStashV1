@@ -3,10 +3,7 @@
 </script>
 
 <template>
-<UContainer>
-  <LayoutNavBar />
-  <slot />
-</UContainer>
+
 </template>
 
 <style scoped>

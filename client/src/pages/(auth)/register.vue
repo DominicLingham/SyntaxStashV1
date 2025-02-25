@@ -3,10 +3,9 @@
 </script>
 
 <template>
-<UContainer>
-  <LayoutNavBar />
-  <slot />
-</UContainer>
+  <div>
+    <h2 class="text-3xl">Register</h2>
+  </div>
 </template>
 
 <style scoped>
