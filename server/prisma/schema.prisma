@@ -15,15 +15,17 @@ datasource db {
 
 model Resource {
   id             String       @id @default(uuid())
-  type           ResourceType @relation(fields: [resourceTypeId], references: [id])
+  type           ResourceType @relation(fields: [resourceTypeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   resourceTypeId Int
   title          String       @db.VarChar(255)
-  description    String       @db.VarChar(255)
+  description    String       @default("") @db.VarChar(255)
   url            String?      @db.VarChar(2083)
-  content        String?      @db.Text
+  content        String?      @db.MediumText
   tags           Tag[]        @relation("ResourceTags")
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+
+  @@unique([title, resourceTypeId])
 }
 
 model ResourceType {
@@ -34,7 +36,7 @@ model ResourceType {
 
 model Tag {
   id             Int            @id @default(autoincrement())
-  name           String         @unique
+  name           String         @unique @db.VarChar(50)
   resources      Resource[]     @relation("ResourceTags")
   journalEntries JournalEntry[] @relation("JournalEntryTags")
 }
@@ -50,11 +52,13 @@ model Journal {
 model JournalEntry {
   id        String   @id @default(uuid())
   journalId String
-  journal   Journal  @relation("JournalEntries", fields: [journalId], references: [id])
+  journal   Journal  @relation("JournalEntries", fields: [journalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   title     String   @db.VarChar(255)
   intro     String?  @db.VarChar(255)
   content   String   @db.Text
   tags      Tag[]    @relation("JournalEntryTags")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([title, journalId])
 }
