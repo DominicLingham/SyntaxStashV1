@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@nuxt/ui": "^2.21.0",
+    "@vee-validate/zod": "^4.15.0",
     "nuxt": "^3.15.4",
+    "vee-validate": "^4.15.0",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "sass": "^1.85.1",
