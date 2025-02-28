@@ -5,12 +5,15 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <NuxtLink to="/">Home</NuxtLink>
-    <AuthLoginForm />
-  </div>
+    <UCard>
+      <template #header>
+        <NuxtLink to="/">
+          <BrandLogo hide-logo-text/>
+        </NuxtLink>
+      </template>
+      <AuthLoginForm/>
+    </UCard>
 </template>
 
 <style scoped>
-
 </style>

@@ -31,39 +31,38 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <UCard>
-    <UForm :errors="errors"
-           :state="values"
-           @submit="onSubmit">
-      <UFormGroup label="Email address" name="email" :error="errors.email">
-        <UInput
-            v-model="email"
-            v-bind="emailAttrs"
-            type="email"
-            placeholder="Enter your email (e.g. name@domain.com)"
-        />
-      </UFormGroup>
+  <UForm :errors="errors"
+         :state="values"
+         class="space-y-4"
+         @submit="onSubmit">
+    <UFormGroup label="Email address" name="email" :error="errors.email">
+      <UInput
+          v-model="email"
+          v-bind="emailAttrs"
+          type="email"
+          placeholder="Enter your email (e.g. name@domain.com)"
+      />
+    </UFormGroup>
 
-      <UFormGroup label="Password"
-                  name="password"
-                  :error="errors.password">
-        <UInput
-            v-model="password"
-            v-bind="passwordAttrs"
-            type="password"
-            placeholder="Enter your password"
-        />
-      </UFormGroup>
+    <UFormGroup label="Password"
+                name="password"
+                :error="errors.password">
+      <UInput
+          v-model="password"
+          v-bind="passwordAttrs"
+          type="password"
+          placeholder="Enter your password"
+      />
+    </UFormGroup>
 
-      <UButton type="submit" color="primary">
-        Login
-      </UButton>
-    </UForm>
-    
-    <pre>{{values}}</pre>
-    
-    <NuxtLink to="/register">Register</NuxtLink>
-  </UCard>
+    <UButton type="submit" color="primary">
+      Login
+    </UButton>
+  </UForm>
+
+  <pre>{{ values }}</pre>
+
+  <NuxtLink to="/register">Register</NuxtLink>
 </template>
 
 <style scoped>

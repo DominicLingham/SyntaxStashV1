@@ -1,8 +1,8 @@
 ﻿<script setup lang="ts">
 withDefaults(defineProps<{
-  showLogoText?: boolean;
+  hideLogoText?: boolean;
 }>(),{
-  showLogoText: true
+  hideLogoText: false
 });
 const colorMode = useColorMode();
 
@@ -10,7 +10,7 @@ const isDark = computed(() => colorMode.value === 'dark');
 </script>
 
 <template>
-  <div class="flex items-center">
+  <div class="flex items-center justify-center">
     <img v-if="isDark"
          width="100px"
          class="logo"
@@ -19,7 +19,7 @@ const isDark = computed(() => colorMode.value === 'dark');
          width="100px"
          class="logo"
          src="~/assets/SyntaxStashLogo-light.svg"/>
-    <span v-if="showLogoText"
+    <span v-if="!hideLogoText"
           class="logo-text text-4xl font-extrabold text-primary">
       SyntaxStash
     </span>

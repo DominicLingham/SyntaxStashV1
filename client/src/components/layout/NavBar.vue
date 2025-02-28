@@ -4,7 +4,7 @@ import DarkModeToggle from "~/components/utils/DarkModeToggle.vue";
 </script>
 
 <template>
-  <div class="pb-4 pt-4 w-full flex justify-between">
+  <div class="p-4 w-full flex justify-between">
     <NuxtLink to="/">
       <BrandLogo />
     </NuxtLink>

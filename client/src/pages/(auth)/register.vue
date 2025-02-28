@@ -5,11 +5,17 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <h2 class="text-3xl">Register</h2>
-  </div>
+    <UCard>
+      <template #header>
+        <NuxtLink to="/">
+          <BrandLogo hide-logo-text/>
+        </NuxtLink>
+      </template>
+      <template #footer>
+        <NuxtLink to="/login">Login</NuxtLink>
+      </template>
+    </UCard>
 </template>
 
 <style scoped>
-
 </style>
