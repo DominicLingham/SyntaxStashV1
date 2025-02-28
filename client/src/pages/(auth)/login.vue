@@ -6,8 +6,7 @@ definePageMeta({
 
 <template>
   <div>
-    <h2 class="text-3xl">Login</h2>
-    <NuxtLink to="/register">Register</NuxtLink>
+    <NuxtLink to="/">Home</NuxtLink>
     <AuthLoginForm />
   </div>
 </template>

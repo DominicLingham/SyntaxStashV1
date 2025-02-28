@@ -3,9 +3,9 @@
 </script>
 
 <template>
-<UContainer>
-  <slot />
-</UContainer>
+  <UContainer>
+      <slot/>
+  </UContainer>
 </template>
 
 <style scoped>

@@ -61,6 +61,8 @@ const onSubmit = handleSubmit(async (values) => {
     </UForm>
     
     <pre>{{values}}</pre>
+    
+    <NuxtLink to="/register">Register</NuxtLink>
   </UCard>
 </template>
 
