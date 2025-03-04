@@ -62,7 +62,7 @@ const onSubmit = handleSubmit(async (values) => {
 
   <pre>{{ values }}</pre>
 
-  <NuxtLink to="/register">Register</NuxtLink>
+  <UButton to="/register">Register</UButton>
 </template>
 
 <style scoped>

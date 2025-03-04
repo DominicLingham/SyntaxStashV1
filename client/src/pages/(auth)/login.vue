@@ -5,7 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-    <UCard>
+    <UCard class="dark:bg-transparent">
       <template #header>
         <NuxtLink to="/">
           <BrandLogo hide-logo-text/>

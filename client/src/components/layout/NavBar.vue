@@ -6,10 +6,10 @@ import DarkModeToggle from "~/components/utils/DarkModeToggle.vue";
 <template>
   <div class="p-4 w-full flex justify-between">
     <NuxtLink to="/">
-      <BrandLogo />
+      <BrandLogo/>
     </NuxtLink>
     <div class="flex gap-4 items-center">
-      <ULink to="/login">Login</ULink>
+      <UButton to="/login">Login</UButton>
       <DarkModeToggle/>
     </div>
   </div>
