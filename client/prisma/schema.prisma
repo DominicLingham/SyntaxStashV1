@@ -69,7 +69,7 @@ model Journal {
 
 model JournalEntry {
   id        String   @id @default(uuid())
-  journalId String
+  journalId String   @unique
   journal   Journal  @relation("JournalEntries", fields: [journalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   title     String   @db.VarChar(255)
   intro     String?  @db.VarChar(255)
