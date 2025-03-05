@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String     @id @default(uuid())
+  email         String     @unique
+  name          String?
+  emailVerified Boolean
+  image         String?    @db.Text
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+  journal       Journal?   @relation("JournalOwner")
+  resources     Resource[] @relation("UserResources")
+
+  @@map("user")
+}
+
+model Resource {
+  id             String       @id @default(uuid())
+  type           ResourceType @relation(fields: [resourceTypeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  resourceTypeId Int
+  title          String       @db.VarChar(255)
+  description    String       @default("") @db.VarChar(255)
+  url            String?      @db.VarChar(2083)
+  content        String?      @db.MediumText
+  tags           Tag[]        @relation("ResourceTags")
+  userId         String
+  user           User         @relation("UserResources", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([title, resourceTypeId])
+  @@index([userId])
+}
+
+model ResourceType {
+  id          Int        @id @default(autoincrement())
+  displayName String     @unique @db.VarChar(20)
+  Resource    Resource[]
+}
+
+model Tag {
+  id             Int            @id @default(autoincrement())
+  name           String         @unique @db.VarChar(50)
+  resources      Resource[]     @relation("ResourceTags")
+  journalEntries JournalEntry[] @relation("JournalEntryTags")
+}
+
+model Journal {
+  id        String         @id @default(uuid())
+  title     String         @db.VarChar(255)
+  entries   JournalEntry[] @relation("JournalEntries")
+  userId    String         @unique
+  user      User           @relation("JournalOwner", fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model JournalEntry {
+  id        String   @id @default(uuid())
+  journalId String
+  journal   Journal  @relation("JournalEntries", fields: [journalId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  title     String   @db.VarChar(255)
+  intro     String?  @db.VarChar(255)
+  content   String   @db.Text
+  tags      Tag[]    @relation("JournalEntryTags")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([title, journalId])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?  @db.Text
+  userAgent String?  @db.Text
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String    @db.Text
+  providerId            String    @db.Text
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @db.Text
+  refreshToken          String?   @db.Text
+  idToken               String?   @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?   @db.Text
+  password              String?   @db.Text
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String    @db.Text
+  value      String    @db.Text
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
