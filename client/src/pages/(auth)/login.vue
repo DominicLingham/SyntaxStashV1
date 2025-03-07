@@ -11,7 +11,12 @@ definePageMeta({
           <BrandLogo hide-logo-text/>
         </NuxtLink>
       </template>
+      <UDivider label="OR" />
       <AuthLoginForm/>
+      <div class="flex gap-1">
+        <p>Need an account?</p>
+        <ULink to="/register" class="text-primary">Register</ULink>
+      </div>
     </UCard>
 </template>
 

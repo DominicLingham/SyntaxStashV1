@@ -65,10 +65,6 @@ const handleSignIn = handleSubmit(async (values) => {
       Login
     </UButton>
   </UForm>
-
-  <pre>{{ values }}</pre>
-
-  <UButton to="/register">Register</UButton>
 </template>
 
 <style scoped>

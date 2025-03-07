@@ -5,16 +5,17 @@ definePageMeta({
 </script>
 
 <template>
-    <UCard>
+    <UCard class="dark:bg-transparent">
       <template #header>
         <NuxtLink to="/">
           <BrandLogo hide-logo-text/>
         </NuxtLink>
       </template>
       <AuthRegistrationForm />
-      <template #footer>
-        <NuxtLink to="/login">Login</NuxtLink>
-      </template>
+      <ULink to="/login"
+             class="text-primary">
+        I already have an account
+      </ULink>
     </UCard>
 </template>
 

@@ -4,6 +4,9 @@ import {useForm} from 'vee-validate';
 import {toTypedSchema} from '@vee-validate/zod';
 import {signIn, signUp} from "~/lib/auth-client";
 
+const showPassword = ref<boolean>(false);
+const showPasswordConfirm = ref<boolean>(false);
+
 // Zod initialisation
 const loginValidation = toTypedSchema(
     z.object({
@@ -11,6 +14,7 @@ const loginValidation = toTypedSchema(
       lastName: z.string(),
       email: z.string().email('Invalid email'),
       password: z.string().min(8, 'Must be at least 8 characters'),
+      confirmPassword: z.string().min(8, 'Must be at least 8 characters'),
     })
 );
 
@@ -22,6 +26,7 @@ const {handleSubmit, errors, values, defineField} = useForm({
     lastName: '',
     email: '',
     password: '',
+    confirmPassword: '',
   }
 });
 
@@ -29,6 +34,7 @@ const [email, emailAttrs] = defineField('email');
 const [password, passwordAttrs] = defineField('password');
 const [firstName] = defineField('firstName');
 const [lastName] = defineField('lastName');
+const [confirmPassword, confirmPasswordAttrs] = defineField('confirmPassword');
 
 const emailValue = computed(() => values.email || "");
 const fullNameValue = computed(() => `${values.firstName} ${values.lastName}` || "");
@@ -45,7 +51,7 @@ const handleSignUp = handleSubmit(async (values) => {
         alert(context.error.message);
       },
       onSuccess() {
-        useRouter().push("/");
+        useRouter().push("/welcome");
       },
     },
   });
@@ -86,19 +92,47 @@ const handleSignUp = handleSubmit(async (values) => {
       <UInput
           v-model="password"
           v-bind="passwordAttrs"
-          type="password"
+          :type="showPassword ? 'text' : 'password'"
           placeholder="Enter your password"
-      />
+          :ui="{ icon: { trailing: { pointer: '' } } }">
+        <template #trailing>
+          <UButton
+              color="gray"
+              variant="link"
+              :icon="showPassword ? 'i-bxs:hide' : 'i-bx:show'"
+              :padded="false"
+              @click="showPassword = !showPassword"
+          />
+        </template>
+      </UInput>
+    </UFormGroup>
+
+    <UFormGroup label="Confirm password"
+                name="confirmPassword"
+                :error="errors.confirmPassword">
+      <UInput
+          v-model="confirmPassword"
+          v-bind="confirmPasswordAttrs"
+          :type="showPasswordConfirm ? 'text' : 'password'"
+          placeholder="Confirm your password"
+          :ui="{ icon: { trailing: { pointer: '' } } }"
+      >
+        <template #trailing>
+          <UButton
+              color="gray"
+              variant="link"
+              :icon="showPasswordConfirm ? 'i-bxs:hide' : 'i-bx:show'"
+              :padded="false"
+              @click="showPasswordConfirm = !showPasswordConfirm"
+          />
+        </template>
+      </UInput>
     </UFormGroup>
 
     <UButton type="submit" color="primary">
       Sign up
     </UButton>
   </UForm>
-
-  <pre>{{ fullNameValue }}</pre>
-  <pre>{{ passwordValue }}</pre>
-  <pre>{{ emailValue }}</pre>
 </template>
 
 <style scoped>
