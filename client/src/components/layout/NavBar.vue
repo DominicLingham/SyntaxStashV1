@@ -1,6 +1,8 @@
 ﻿<script setup lang="ts">
 import DarkModeToggle from "~/components/utils/DarkModeToggle.vue";
 
+const authStore = useAuthStore();
+
 </script>
 
 <template>
@@ -9,7 +11,12 @@ import DarkModeToggle from "~/components/utils/DarkModeToggle.vue";
       <BrandLogo/>
     </NuxtLink>
     <div class="flex gap-4 items-center">
-      <UButton to="/login">Login</UButton>
+      <UButton v-if="!authStore.loggedIn"
+               to="/login">Login</UButton>
+      <UButton v-if="authStore.loggedIn"
+               icon="i-material-symbols:account-circle-outline"
+               to="/dashboard"
+               class="dark:bg-transparent dark:text-primary"/>
       <DarkModeToggle/>
     </div>
   </div>

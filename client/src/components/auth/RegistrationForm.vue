@@ -129,7 +129,9 @@ const handleSignUp = handleSubmit(async (values) => {
       </UInput>
     </UFormGroup>
 
-    <UButton type="submit" color="primary">
+    <UButton block
+             type="submit" 
+             color="primary">
       Sign up
     </UButton>
   </UForm>

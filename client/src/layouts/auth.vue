@@ -3,8 +3,10 @@
 </script>
 
 <template>
-  <UContainer>
-    <slot />
+  <UContainer class="min-h-screen flex justify-center items-center">
+    <div class="w-2/5">
+      <slot />
+    </div>
   </UContainer>
 </template>
 

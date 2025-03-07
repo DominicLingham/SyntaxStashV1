@@ -1,9 +1,9 @@
 ﻿<script setup lang="ts">
-
 </script>
 
 <template>
-  <h2 class="text-2xl">Dashboard</h2>
+  <h1 class="text-2xl font-semibold">My Dasboard</h1>
+  <DashboardLinks />
 </template>
 
 <style scoped>

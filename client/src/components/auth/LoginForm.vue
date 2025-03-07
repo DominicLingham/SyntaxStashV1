@@ -30,6 +30,11 @@ const handleSignIn = handleSubmit(async (values) => {
   const {data} = await signIn.email({
     email: values.email,
     password: values.password,
+    fetchOptions: {
+      onSuccess() {
+        useRouter().push('/');
+      }
+    }
   })
   
   console.log(data);
@@ -61,7 +66,10 @@ const handleSignIn = handleSubmit(async (values) => {
       />
     </UFormGroup>
 
-    <UButton type="submit" color="primary">
+    <UButton
+        block
+        type="submit"
+        color="primary">
       Login
     </UButton>
   </UForm>
