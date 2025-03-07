@@ -2,6 +2,7 @@
 import { z } from 'zod';
 import { useForm } from 'vee-validate';
 import { toTypedSchema } from '@vee-validate/zod';
+import {signIn} from "~/lib/auth-client"
 
 // Zod initialisation
 const loginValidation = toTypedSchema(
@@ -25,8 +26,13 @@ const [password, passwordAttrs] = defineField('password');
 
 
 // Actions
-const onSubmit = handleSubmit(async (values) => {
-  console.log('Form submitted with:', values);
+const handleSignIn = handleSubmit(async (values) => {
+  const {data} = await signIn.email({
+    email: values.email,
+    password: values.password,
+  })
+  
+  console.log(data);
 });
 </script>
 
@@ -34,7 +40,7 @@ const onSubmit = handleSubmit(async (values) => {
   <UForm :errors="errors"
          :state="values"
          class="space-y-4"
-         @submit="onSubmit">
+         @submit="handleSignIn">
     <UFormGroup label="Email address" name="email" :error="errors.email">
       <UInput
           v-model="email"

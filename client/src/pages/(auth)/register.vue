@@ -11,6 +11,7 @@ definePageMeta({
           <BrandLogo hide-logo-text/>
         </NuxtLink>
       </template>
+      <AuthRegistrationForm />
       <template #footer>
         <NuxtLink to="/login">Login</NuxtLink>
       </template>
