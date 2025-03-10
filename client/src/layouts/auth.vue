@@ -3,11 +3,9 @@
 </script>
 
 <template>
-  <UContainer class="min-h-screen flex justify-center items-center">
-    <div class="w-2/5">
+  <div class="flex items-center justify-center min-h-screen">
       <slot />
-    </div>
-  </UContainer>
+  </div>
 </template>
 
 <style scoped>

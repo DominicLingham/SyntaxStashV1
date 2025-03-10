@@ -5,15 +5,15 @@ definePageMeta({
 </script>
 
 <template>
-    <UCard class="dark:bg-transparent w-full">
+    <UCard class="w-full max-w-lg p-6">
       <template #header>
         <NuxtLink to="/">
-          <BrandLogo hide-logo-text/>
+          <BrandLogo hide-logo-text />
         </NuxtLink>
       </template>
       <AuthOAuthLogin />
       <UDivider label="OR" />
-      <AuthLoginForm/>
+      <AuthLoginForm />
       <div class="flex gap-1 justify-center mt-4">
         <p>Need an account?</p>
         <ULink to="/register" class="text-primary font-semibold">Register</ULink>
