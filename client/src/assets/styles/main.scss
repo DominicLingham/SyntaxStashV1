@@ -2,3 +2,7 @@
 body {
   min-height: 100vh;
 }
+
+.auth-card {
+  @apply w-full max-w-lg p-6 max-sm:min-h-screen max-sm:flex max-sm:flex-col max-sm:justify-center;
+}
